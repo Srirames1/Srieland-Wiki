@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srieland Official Wiki</title>
+    <style>
+        :root {
+            --bg-color: #0a0e17;
+            --card-bg: #161b2e;
+            --accent: #00f2ff; /* Cyan for Sriram/Tech */
+            --accent-gold: #ffd700; /* Gold for Sreedev/Wealth */
+            --accent-silver: #c0c0c0; /* Silver */
+            --accent-bronze: #cd7f32; /* Bronze */
+            --accent-danger: #ed213a; /* Red for Gopi/Chaos */
+            --accent-purple: #9b59b6; /* Purple for Franchises */
+            --accent-safe: #2ecc71; /* Green for Archive */
+            --text-main: #e0e6ed;
+            --text-dim: #94a3b8;
+            --nav-glass: rgba(10, 14, 23, 0.85);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 50% 0%, #1a233a 0%, #0a0e17 60%);
+            overflow-x: hidden;
+        }
+
+        /* --- Header & Nav --- */
+        header {
+            background: var(--nav-glass);
+            border-bottom: 1px solid #334155;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover { color: var(--accent); }
+        nav a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background-color: var(--accent); transition: width 0.3s;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* --- Main Layout --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 20px; }
+
+        .hero {
+            text-align: center; padding: 4rem 1rem; margin-bottom: 3rem; animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3.5rem; margin-bottom: 0.5rem; margin-top: 0;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .tagline { color: var(--accent-gold); font-style: italic; font-size: 1.2rem; margin-bottom: 1rem; }
+
+        h2.section-title {
+            font-size: 2rem; margin-top: 4rem; margin-bottom: 1.5rem;
+            border-left: 5px solid var(--accent); padding-left: 15px; color: white;
+        }
+
+        /* --- Map Section --- */
+        .map-section {
+            background: var(--card-bg); border: 1px solid #334155; border-radius: 16px;
+            padding: 1rem; margin-bottom: 3rem; position: relative; height: 500px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6); overflow: hidden;
+        }
+        .map-wrapper { width: 100%; height: 100%; position: relative; background: #0f1320; border-radius: 12px; overflow: auto; }
+        .map-container { position: relative; min-width: 800px; height: 100%; }
+
+        .region {
+            position: absolute; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+            border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer; flex-direction: column; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .region:hover {
+            transform: scale(1.05) translateY(-5px); z-index: 10;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5); border-color: white;
+        }
+        .region span { font-size: 0.75rem; font-weight: normal; opacity: 0.9; margin-top: 2px; }
+
+        /* Geographic Placement */
+        #araana { top: 5%; left: 30%; width: 18%; height: 22%; background: linear-gradient(135deg, #4b0082, #8a2be2); border-radius: 10px 40px 5px 5px; }
+        #inkon { top: 30%; left: 20%; width: 15%; height: 25%; background: linear-gradient(135deg, #2c3e50, #4ca1af); border-radius: 30px 5px 5px 20px; }
+        #united { top: 28%; left: 38%; width: 22%; height: 35%; background: linear-gradient(135deg, #134e5e, #71b280); border-radius: 50% 20% 40% 10%; }
+        #putti { top: 10%; right: 8%; width: 28%; height: 65%; background: linear-gradient(135deg, #ffafbd, #ffc3a0); border-radius: 20px 60px 20px 80px; }
+        #billy { bottom: 8%; left: 35%; width: 15%; height: 20%; background: linear-gradient(135deg, #f12711, #f5af19); border-radius: 10px; }
+        #saami { bottom: 5%; left: 53%; width: 14%; height: 18%; background: linear-gradient(135deg, #ed213a, #93291e); border-radius: 40% 60% 70% 30%; }
+
+        /* --- Grid & Cards --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .card {
+            background: var(--card-bg); border: 1px solid #334155; border-radius: 12px;
+            padding: 1.5rem; transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 20px rgba(0, 242, 255, 0.1); }
+        
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; }
+        .state-name { font-size: 1.5rem; color: var(--accent); margin: 0; font-weight: 700; }
+        .state-pop { background: #0f1320; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-family: monospace; border: 1px solid #334155; }
+        .stat-row { display: flex; justify-content: space-between; font-size: 0.9rem; margin: 8px 0; color: var(--text-dim); border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 2px; }
+        .stat-val { color: var(--text-main); font-weight: 600; }
+        .desc { margin-top: 1rem; font-size: 0.95rem; line-height: 1.5; color: #cbd5e1; }
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 800; margin-right: 5px; letter-spacing: 0.5px; text-transform: uppercase; }
+        
+        /* Badges */
+        .badge-rich { background: #ffd700; color: #000; }
+        .badge-chill { background: #71b280; color: #fff; }
+        .badge-tech { background: #8a2be2; color: #fff; }
+        .badge-danger { background: #ed213a; color: #fff; }
+        .badge-cap { background: #fff; color: #000; }
+        .badge-franchise { background: #9b59b6; color: #fff; }
+
+        /* Interactive Card for Franchises */
+        .card-clickable {
+            cursor: pointer;
+        }
+        .card-clickable::before {
+            content: "CLICK FOR INFO";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            border: 1px solid var(--accent);
+        }
+        .card-clickable:hover::before { opacity: 1; }
+
+
+        /* --- History Timeline --- */
+        .history-container { background: linear-gradient(180deg, #161b2e, #0f1320); padding: 3rem; border-radius: 16px; border: 1px solid #334155; position: relative; }
+        .timeline-item { border-left: 2px solid #334155; padding-left: 30px; margin-bottom: 3rem; position: relative; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot { position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        .timeline-year { font-size: 1.8rem; margin-top: 0; margin-bottom: 0.5rem; font-weight: 800; }
+        .film-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid rgba(255,255,255,0.2); }
+
+        /* --- Landmarks Section --- */
+        .landmark-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 15px; margin-top: 2rem; }
+        .landmark-card {
+            background: rgba(10, 14, 23, 0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .landmark-label { color: var(--text-dim); font-size: 0.9rem; font-weight: 600; }
+        .landmark-value { color: var(--accent); font-weight: bold; text-align: right; }
+
+        /* --- BOX OFFICE LEADERBOARD --- */
+        .box-office-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 15px; }
+        .bo-row {
+            display: flex; align-items: center; justify-content: space-between; padding: 1.5rem;
+            background: var(--card-bg); border-radius: 10px; border: 1px solid #334155; transition: transform 0.2s;
+        }
+        .bo-row:hover { transform: scale(1.02); }
+        
+        /* Rank Styles */
+        .rank-num { font-size: 2rem; font-weight: 900; margin-right: 20px; width: 50px; text-align: center; }
+        
+        .rank-1 { border: 1px solid var(--accent-gold); background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), transparent); }
+        .rank-1 .rank-num { color: var(--accent-gold); text-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
+        .rank-1 .bo-gross { color: var(--accent-gold); }
+
+        .rank-2 { border: 1px solid var(--accent-silver); background: linear-gradient(90deg, rgba(192, 192, 192, 0.1), transparent); }
+        .rank-2 .rank-num { color: var(--accent-silver); text-shadow: 0 0 10px rgba(192, 192, 192, 0.5); }
+        .rank-2 .bo-gross { color: var(--accent-silver); }
+
+        .rank-3 { border: 1px solid var(--accent-bronze); background: linear-gradient(90deg, rgba(205, 127, 50, 0.1), transparent); }
+        .rank-3 .rank-num { color: var(--accent-bronze); text-shadow: 0 0 10px rgba(205, 127, 50, 0.5); }
+        .rank-3 .bo-gross { color: var(--accent-bronze); }
+
+        .bo-info { flex-grow: 1; }
+        .bo-title { font-size: 1.2rem; font-weight: bold; display: block; }
+        .bo-director { font-size: 0.9rem; color: var(--text-dim); }
+        .bo-gross { font-weight: 800; font-size: 1.2rem; }
+
+        /* --- Tooltip --- */
+        .tooltip-container { position: relative; display: inline-block; cursor: help; color: var(--accent-gold); border-bottom: 1px dotted var(--accent-gold); font-weight: bold; }
+        .tooltip-box {
+            visibility: hidden; width: 300px; background-color: #0f1320; color: #fff; text-align: left; border-radius: 6px; padding: 15px; position: absolute; z-index: 100;
+            bottom: 140%; left: 50%; margin-left: -150px; opacity: 0; transition: opacity 0.3s; border: 1px solid var(--accent); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); font-size: 0.9rem; line-height: 1.5;
+        }
+        .tooltip-container:hover .tooltip-box { visibility: visible; opacity: 1; }
+        .tooltip-header { color: var(--accent); font-weight: bold; display: block; margin-bottom: 5px; border-bottom: 1px solid #333; padding-bottom: 5px; }
+
+        /* --- Button for Archive --- */
+        .btn-archive {
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            color: white; border: none; padding: 15px 30px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4); transition: transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-archive:hover { transform: scale(1.03); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6); }
+
+        footer { text-align: center; padding: 3rem; color: var(--text-dim); font-size: 0.9rem; border-top: 1px solid #334155; margin-top: 5rem; background: #05080f; }
+
+        /* --- MODALS FOR FRANCHISES --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.9); 
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 5% auto;
+            padding: 0;
+            border: 1px solid var(--accent-purple);
+            width: 80%;
+            max-width: 900px;
+            border-radius: 12px;
+            box-shadow: 0 0 50px rgba(155, 89, 182, 0.3);
+            animation: zoomIn 0.3s;
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.9); opacity: 0;} 
+            to {transform: scale(1); opacity: 1;}
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, rgba(155, 89, 182, 0.1), transparent);
+        }
+
+        .modal-title { font-size: 1.8rem; margin: 0; color: var(--accent-purple); }
+        .close-btn { color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .close-btn:hover { color: #fff; }
+
+        .modal-body { padding: 30px; color: #e0e6ed; }
+        .modal-body h3 { color: var(--accent); border-bottom: 1px solid #334155; padding-bottom: 10px; margin-top: 25px; }
+        .modal-body h4 { color: var(--accent-gold); margin-bottom: 5px; }
+        
+        /* Specific Styles for Roasts & Tables */
+        .roast-card { background: rgba(0,0,0,0.3); border-left: 3px solid var(--accent-danger); padding: 15px; margin-bottom: 20px; }
+        .lyrics { font-style: italic; color: var(--text-dim); margin-bottom: 10px; border-left: 2px solid #555; padding-left: 10px; white-space: pre-line; }
+        .roast-text { color: #ff9999; }
+        
+        .guide-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .guide-table th, .guide-table td { border: 1px solid #334155; padding: 12px; text-align: left; }
+        .guide-table th { background: rgba(255,255,255,0.05); color: var(--accent); }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .grid, .landmark-grid { grid-template-columns: 1fr; }
+            header { padding: 1rem; }
+            nav a { margin-left: 10px; font-size: 0.8rem; }
+            .tooltip-box { left: -50px; }
+            .bo-row { flex-direction: column; text-align: center; gap: 10px; }
+            .rank-num { margin: 0; }
+            .modal-content { width: 95%; margin: 10% auto; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Srieland<span style="color:white; font-size:0.5em; margin-left:5px; opacity: 0.6;">WIKI</span></div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#map">Map</a>
+            <a href="#film">History</a>
+            <a href="#boxoffice">Box Office</a>
+            <a href="#franchises">Franchises</a>
+            <a href="#archive">Archive</a>
+        </nav>
+    </header>
+
+    <div class="container" id="home">
+        
+        <div class="hero">
+            <h1>The Sovereign State of Srieland</h1>
+            <p class="tagline">"Progress through Duality: From Silicon Towers to Wild Spirits"</p>
+        </div>
+
+        <h2 class="section-title" id="map">National Geography</h2>
+        <div class="map-section">
+             <div class="map-wrapper">
+                <div class="map-container">
+                    <div class="region" id="araana">Araana Seru<br><span>The Capital</span></div>
+                    <div class="region" id="inkon">Inkon<br><span>Writers Hub</span></div>
+                    <div class="region" id="united">United<br><span>Nature Reserve</span></div>
+                    <div class="region" id="putti">Putti<br><span>Economic Giant</span></div>
+                    <div class="region" id="billy">Billy<br><span>Arid Zone</span></div>
+                    <div class="region" id="saami">Saami<br><span>Chaos Central</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="section-title" id="states">Administrative Divisions</h2>
+        <div class="grid">
+            <div class="card" style="border-top: 3px solid #8a2be2;">
+                <div class="card-header"><h3 class="state-name">Araana Seru</h3><span class="state-pop">9.9M</span></div>
+                <span class="badge badge-cap">CAPITAL</span> <span class="badge badge-tech">OTAKU</span>
+                <div style="margin-top:15px;">
+                    <div class="stat-row"><span>Avg IQ:</span> <span class="stat-val">130</span></div>
+                    <div class="stat-row"><span>Coffee Price:</span> <span class="stat-val" style="color:#ff6b6b;">$10.00</span></div>
+                </div>
+            </div>
+
+            <div class="card" style="border-top: 3px solid #ffd700;">
+                <div class="card-header"><h3 class="state-name">Putti</h3><span class="state-pop">199M</span></div>
+                <span class="badge badge-rich">WEALTHY</span>
+                <div style="margin-top:15px;">
+                    <div class="stat-row"><span>Avg IQ:</span> <span class="stat-val">120</span></div>
+                    <div class="stat-row"><span>Coffee Price:</span> <span class="stat-val" style="color:#51cf66;">$0.01</span></div>
+                </div>
+            </div>
+
+            <div class="card" style="border-top: 3px solid #71b280;">
+                <div class="card-header"><h3 class="state-name">United</h3><span class="state-pop">7M</span></div>
+                <span class="badge badge-chill">NATURE</span>
+                <div style="margin-top:15px;">
+                    <div class="stat-row"><span>Avg IQ:</span> <span class="stat-val">120</span></div>
+                    <div class="stat-row"><span>Land:</span> <span class="stat-val">2nd Largest</span></div>
+                </div>
+            </div>
+
+            <div class="card" style="border-top: 3px solid #4ca1af;">
+                <div class="card-header"><h3 class="state-name">Inkon</h3><span class="state-pop">12M</span></div>
+                <span class="badge badge-tech">ACADEMIA</span>
+                <div style="margin-top:15px;">
+                    <div class="stat-row"><span>Avg IQ:</span> <span class="stat-val">115</span></div>
+                    <div class="stat-row"><span>Event:</span> <span class="stat-val">10-Min Novel</span></div>
+                </div>
+            </div>
+
+            <div class="card" style="border-top: 3px solid #f5af19;">
+                <div class="card-header"><h3 class="state-name">Billy</h3><span class="state-pop">4M</span></div>
+                <span class="badge badge-rich">ARID</span>
+                <div style="margin-top:15px;">
+                    <div class="stat-row"><span>Avg IQ:</span> <span class="stat-val">100</span></div>
+                    <div class="stat-row"><span>Birthrate:</span> <span class="stat-val" style="color:#51cf66;">6.0</span></div>
+                </div>
+            </div>
+
+            <div class="card" style="border-top: 3px solid #ed213a;">
+                <div class="card-header"><h3 class="state-name" style="color: #ed213a;">Saami</h3><span class="state-pop">100M</span></div>
+                <span class="badge badge-danger">CHAOS</span>
+                <div style="margin-top:15px;">
+                    <div class="stat-row"><span>Avg IQ:</span> <span class="stat-val">~95</span></div>
+                    <div class="stat-row"><span>Crime:</span> <span class="stat-val" style="color:#ff6b6b;">Very High</span></div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="film" style="border-color: #ff0055; color: #ff0055;">
+            Srielandian Film Culture
+        </h2>
+        
+        <div class="history-container">
+            <h3 style="margin-top:0;">Segment I: The History</h3>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background: var(--accent);"></div>
+                <h3 class="timeline-year" style="color: var(--accent);">2021</h3>
+                <p>Industry launch: <em>"The Ant Times"</em> (Dir. Sriram).</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background: var(--accent-gold);"></div>
+                <h3 class="timeline-year" style="color: var(--accent-gold);">2022</h3>
+                <p><strong>Sreedev</strong> releases <em>"DOT"</em>. The Horror Wave begins.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background: #00f2ff;"></div>
+                <h3 class="timeline-year" style="color: #00f2ff;">2025</h3>
+                <p>Franchise era ("A Bus Tale") & Arthouse ("The Bob Redemption").</p>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="boxoffice" style="border-color: #00f2ff; color: #00f2ff;">
+            Segment III: Box Office Records
+        </h2>
+        <div class="box-office-list">
+             <div class="bo-row rank-1">
+                <div class="rank-num">1</div>
+                <div class="bo-info"><span class="bo-title">Project Ore Part Three: The War Of Guardians</span><span class="bo-director">Dir. Sriram</span></div>
+                <span class="bo-gross">4.3B SRD</span>
+            </div>
+            <div class="bo-row rank-2">
+                <div class="rank-num">2</div>
+                <div class="bo-info"><span class="bo-title">Project Ore Part Two: The Voice Of The Guardian</span><span class="bo-director">Dir. Sriram</span></div>
+                <span class="bo-gross">3.7B SRD</span>
+            </div>
+            <div class="bo-row rank-3">
+                <div class="rank-num">3</div>
+                <div class="bo-info"><span class="bo-title">UNDA CLUB</span><span class="bo-director">Dir. Sreedev</span></div>
+                <span class="bo-gross">3.65B SRD</span>
+            </div>
+            <div class="bo-row">
+                <div class="rank-num" style="color:var(--text-dim);">4</div>
+                <div class="bo-info"><span class="bo-title">Ash Eater</span><span class="bo-director">Dir. Mike Black</span></div>
+                <span class="bo-gross">3.27B SRD</span>
+            </div>
+            <div class="bo-row">
+                <div class="rank-num" style="color:var(--text-dim);">5</div>
+                <div class="bo-info"><span class="bo-title">The Lover 2</span><span class="bo-director">Dir. Gopi</span></div>
+                <span class="bo-gross">3.21B SRD</span>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="franchises" style="border-color: #9b59b6; color: #9b59b6;">
+            Segment V: Film Franchises
+        </h2>
+        <p style="color: var(--text-dim);">
+            Film Franchises aren't unusual in Srieland Film Culture. Many movies after their success get turned into a franchise. 
+            <strong>Click on a card below to view detailed archives.</strong>
+        </p>
+
+        <div class="grid">
+            
+            <div class="card card-clickable" style="border-top: 3px solid #9b59b6;" onclick="openModal('modal-car')">
+                <div class="card-header">
+                    <h3 class="state-name" style="color:#9b59b6;">Car</h3>
+                </div>
+                <span class="badge badge-franchise">FRANCHISE</span>
+                <div class="desc">
+                    A collaborative powerhouse franchise directed by both legends.
+                </div>
+                <hr style="border-color: #334155; opacity: 0.3;">
+                <div class="stat-row"><span>Creators:</span> <span class="stat-val" style="color:var(--accent-gold);">Sreedev & Sriram</span></div>
+            </div>
+
+            <div class="card card-clickable" style="border-top: 3px solid #9b59b6;" onclick="openModal('modal-bus')">
+                <div class="card-header">
+                    <h3 class="state-name" style="color:#9b59b6;">One Bus Tale</h3>
+                </div>
+                <span class="badge badge-franchise">FRANCHISE</span>
+                <div class="desc">
+                    Also known as: <em>"Oru KSRTC Apaaratha"</em>. The saga of public transport chaos.
+                </div>
+                <hr style="border-color: #334155; opacity: 0.3;">
+                <div class="stat-row"><span>Creator:</span> <span class="stat-val" style="color:var(--accent-gold);">Sreedev</span></div>
+            </div>
+
+            <div class="card card-clickable" style="border-top: 3px solid #9b59b6;" onclick="openModal('modal-mad')">
+                <div class="card-header">
+                    <h3 class="state-name" style="color:#9b59b6;">MAD MC Universe</h3>
+                </div>
+                <span class="badge badge-franchise">CINEMATIC UNIVERSE</span>
+                <div class="desc">
+                    An expansive universe connecting multiple storylines and characters.
+                </div>
+                <hr style="border-color: #334155; opacity: 0.3;">
+                <div class="stat-row"><span>Creator:</span> <span class="stat-val" style="color:var(--accent);">Sriram</span></div>
+            </div>
+
+            <div class="card card-clickable" style="border-top: 3px solid #9b59b6;" onclick="openModal('modal-lover')">
+                <div class="card-header">
+                    <h3 class="state-name" style="color:#9b59b6;">The Lover Franchise</h3>
+                </div>
+                <span class="badge badge-franchise">ACTION/ROMANCE</span>
+                <div class="desc">
+                    The serialized action-romance saga that defined a genre.
+                </div>
+                <hr style="border-color: #334155; opacity: 0.3;">
+                <div class="stat-row"><span>Creator:</span> <span class="stat-val" style="color:var(--accent-danger);">Gopi</span></div>
+            </div>
+
+        </div>
+
+        <h2 class="section-title" id="archive" style="border-color: #2ecc71; color: #2ecc71;">
+            Segment IV: The Archives
+        </h2>
+        
+        <div style="background: linear-gradient(135deg, #161b2e, #0f1320); padding: 3rem; border-radius: 12px; border: 1px solid #334155; text-align: center; margin-bottom: 4rem;">
+            <p style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #e0e6ed; font-weight: bold;">
+                Srielandian National Film Repository
+            </p>
+            <p style="font-size: 1rem; color: var(--text-dim); margin-bottom: 2rem;">
+                "Some Srielandian Films can be watched through this Google Drive Link"
+            </p>
+            
+            <a href="https://drive.google.com/drive/folders/12uC26M5-hZu-AyyzhuxiUb-e6DloxoWi?usp=sharing" target="_blank" style="text-decoration: none;">
+                <button class="btn-archive">
+                    📂 Access Google Drive Archive
+                </button>
+            </a>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2025 Srieland Government Archives. All Rights Reserved.
+    </footer>
+
+    <div id="modal-car" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🏎️ Car (Franchise)</h2>
+                <span class="close-btn" onclick="closeModal('modal-car')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Overview</h3>
+                <p>"Car" is a massive 12-part racing franchise created primarily by <strong>Sreedev</strong>, with creative contributions from <strong>Sriram</strong>. Spanning releases from 2022 to 2026, the series follows the fictionalized characters of Sriram, Sreedev, and Gopi as they race to win prizes in a high-energy, comic style.</p>
+                
+                <h3>Box Office History</h3>
+                <ul>
+                    <li><strong>The First Era (2022):</strong> The first 10 films were released in rapid succession throughout 2022 and were considered major commercial hits.</li>
+                    <li><strong>The 11th Installment (2025):</strong> Released after a production hiatus, this entry boasted a massive budget of <strong>$290 million</strong>. While it earned a whopping <strong>$568 million</strong>, the "blockbuster" status was declined due to the exorbitant production costs, rendering it an "average hit".</li>
+                    <li><strong>The Future (2026):</strong> The 12th and potentially final installment is currently scheduled for a release in late May 2026.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-bus" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🚌 One Bus Tale</h2>
+                <span class="close-btn" onclick="closeModal('modal-bus')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Overview</h3>
+                <p>Originally titled <em>Oru KSRTC Apaaratha</em>, "One Bus Tale" is a comedy-action franchise created by <strong>Sreedev</strong>. The saga revolves around the chaotic lives of Jeron (a bus driver) and Gopi (the bus conductor), along with passengers Sriram, Abhinav, and Anay, who manage to live on the bus for free.</p>
+                
+                <h3>Performance & Reception</h3>
+                <p>The franchise consists of 6 movies with widely varying critical reception, though all remained profitable.</p>
+                
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px;">
+                        <h4>Movie 1 (Jan 2025)</h4>
+                        <p style="margin:0;">A surprise big hit.</p>
+                        <div class="stat-row"><span>Budget:</span> <span class="stat-val">$23 Million</span></div>
+                        <div class="stat-row"><span>Collection:</span> <span class="stat-val" style="color:#51cf66;">$134 Million</span></div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px;">
+                        <h4>Movie 2</h4>
+                        <p style="margin:0;">Widely considered the best. 3-hour runtime.</p>
+                        <div class="stat-row"><span>Budget:</span> <span class="stat-val">$29 Million</span></div>
+                        <div class="stat-row"><span>Collection:</span> <span class="stat-val" style="color:#51cf66;">$657 Million</span></div>
+                    </div>
+                </div>
+                <p style="margin-top:15px;"><strong>Sequels:</strong> The subsequent four movies received mixed-to-negative reviews but maintained profitability due to the franchise's cult following.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-mad" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🤪 MAD MC Universe</h2>
+                <span class="close-btn" onclick="closeModal('modal-mad')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Overview</h3>
+                <p>The MAD MC Universe (also known as MAD MC Movies) is a tetralogy created by <strong>Sriram</strong>, released between 2021 and 2023. Unlike traditional franchises, these four films share no narrative continuity. Instead, they are thematically linked by their focus on "mad" or mentally eccentric protagonists navigating chaotic, unpredictable storylines.</p>
+
+                <h3>Filmography</h3>
+                <div class="film-box">
+                    <h4>1. Memen Kochu</h4>
+                    <p><strong>Plot:</strong> A disturbed child burns his uncle's motorbike after being denied a toy car, prompting the uncle to seek revenge.<br>
+                    <strong>Duration:</strong> 2 hours 31 mins | <strong>Letterboxd Rating:</strong> 3.8/5</p>
+                </div>
+                <div class="film-box">
+                    <h4>2. Memen Kochu 2</h4>
+                    <p><strong>Plot:</strong> The conflict escalates as the child burns the uncle (causing ~30% burns) after being struck, leading to further chaos.<br>
+                    <strong>Duration:</strong> 2 hours 27 mins | <strong>Letterboxd Rating:</strong> 3.7/5</p>
+                </div>
+                <div class="film-box">
+                    <h4>3. Dogwater Sumesh</h4>
+                    <p><strong>Plot:</strong> Follows "Dogwater Sumesh," a lunatic aspiring singer who is humiliated by a whitewashed musician and decides to seek vengeance.<br>
+                    <strong>Duration:</strong> 1 hour 54 mins | <strong>Letterboxd Rating:</strong> 3.8/5</p>
+                </div>
+                <div class="film-box">
+                    <h4>4. Arana Ser</h4>
+                    <p><strong>Plot:</strong> Follows Arana Ser (Arun P), a tech CEO with severe dementia. When a new employee, Sumesh, joins via a referral from David, he attempts to cure Arana's condition. However, the SRS (Srielandian IRS) raids the company for unpaid taxes dating back to 2012, forcing them to fight off the government.<br>
+                    <strong>Duration:</strong> 2 hours 22 mins | <strong>Letterboxd Rating:</strong> 4.0/5</p>
+                </div>
+
+                <h3>🎵 Official Soundtrack Analysis (Lyrical Roast)</h3>
+                
+                <div class="roast-card">
+                    <h4>From: Dogwater Sumesh (Title Track)</h4>
+                    <div class="lyrics">In a forest that was bitten by dogs
+Existed a Sumesh
+He got called and mocked as Dogwater Sumesh
+In a forest that was bitten by dogs
+Existed a Sumesh
+He got called and mocked as Dogwater Sumesh
+In his hell of a name. Some random pig kids made him a Dogwater Sumesh
+In his hell of a name. Some random pig kids made him a Dogwater Sumesh
+Frick those kids
+Frick  them all
+Fry them like how bad Sumesh sings in fridays</div>
+                    <div class="roast-text"><strong>The Roast:</strong> We need to talk about biology. Forests cannot be "bitten" by dogs unless the dogs are the size of Godzilla. Also, rhyming "Sumesh" with "Sumesh" four times in a row is not a rhyme scheme; it’s a glitch in the matrix.</div>
+                </div>
+
+                <div class="roast-card">
+                    <h4>From: Dogwater Sumesh (Gibberish Song)</h4>
+                     <div class="lyrics">Tss tss tss tss
+Hey sfricjdjnjjjjshs
+Tshsjsyhshsh
+Hshshhsjsjs
+Hshshshsjajjs
+Hsjshsjjsjsjsj
+Hshsjsjjs</div>
+                    <div class="roast-text"><strong>The Roast:</strong> This isn't a rap battle; this is the transcript of a keyboard falling down a flight of stairs. If you turn on subtitles for this scene, the caption guy probably just quit his job.</div>
+                </div>
+
+                <div class="roast-card">
+                    <h4>From: Memen Kochu (Title Track)</h4>
+                    <div class="lyrics">Memen Kochu Memen Kochu
+The Kochu which jumps and jumps like a goomba in meth
+The kochu which wants a toy car
+But uncle has no money uh
+...
+Uncle shame on you!
+Uncle shame on you!
+Uncle shame on you!
+Youuuuu!</div>
+                    <div class="roast-text"><strong>The Roast:</strong> Comparing a child to a Mario villain on illicit substances is... a choice. Also, demanding an "eBay looking F1 car" is weirdly specific consumerism.</div>
+                </div>
+
+                <div class="roast-card">
+                    <h4>From: Memen Kochu (Firecracker Blast)</h4>
+                    <div class="lyrics">It's the day where Firecrackers Blast harder than Memen Kochu's evilness
+It's the day when Memen Kochu's soul gets salvation
+Its the day when Uncle cries all day
+It's the day of.. Firecrackers  Blast
+Firecracker  Blast
+Firecracker  Blast
+Firecracker Blast</div>
+                    <div class="roast-text"><strong>The Roast:</strong> This song consists of three sentences repeated until the listener loses the will to live. It frames the uncle crying all day as a festive event.</div>
+                </div>
+
+                <div class="roast-card">
+                    <h4>From: Memen Kochu 2 (Fire It Up)</h4>
+                    <div class="lyrics">Fire it up
+Get that Uncle's ass on fire
+It seems like a dilemma
+I don't what I'm saying but it just looks so
+FIIIREEE
+...
+MEMEN KOCHU, you delicious son of a dish</div>
+                    <div class="roast-text"><strong>The Roast:</strong> Setting a relative on fire is not a "dilemma," it is a felony. "Delicious son of a dish" is perhaps the most confusing insult in cinematic history.</div>
+                </div>
+
+                <div class="roast-card">
+                    <h4>From: Arana Ser (Dementia Nature)</h4>
+                    <div class="lyrics">Chaos is his middle name, no
+Dementia is his middle name no
+Literally its first name, oh my god no
+Its my will to live that's going after this info</div>
+                    <div class="roast-text"><strong>The Roast:</strong> The songwriter is having a real-time existential crisis during the recording. The lyrics stop being about the character and start being a cry for help.</div>
+                </div>
+
+                 <div class="roast-card">
+                    <h4>From: Arana Ser (Texas Through Sydney)</h4>
+                    <div class="lyrics">Sydney through Texas
+Texas through sydney
+...
+No walter you're not the danger
+You're just a danger
+Arana is the context itself</div>
+                    <div class="roast-text"><strong>The Roast:</strong> Geography has left the chat. You cannot go to Texas via Sydney unless your flight plan was drawn by Arana Ser himself. Throwing in a random Breaking Bad reference proves that this song is just a word-association game gone wrong.</div>
+                </div>
+
+                <h3>⚠️ Parents Guide (BBFC Ratings)</h3>
+                <table class="guide-table">
+                    <thead>
+                        <tr>
+                            <th>Movie</th>
+                            <th>Rating</th>
+                            <th>Content Advisory</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Memen Kochu</td>
+                            <td style="color:var(--accent-gold); font-weight:bold;">12A</td>
+                            <td><strong>Violence:</strong> Mild (Bike burned and blasted).<br><strong>Profanity:</strong> Mild.<br><strong>Intense scenes:</strong> Mild.</td>
+                        </tr>
+                        <tr>
+                            <td>Memen Kochu 2</td>
+                            <td style="color:var(--accent-gold); font-weight:bold;">12A</td>
+                            <td><strong>Violence:</strong> Moderate (Kid burns uncle's ass. Not shown fully).<br><strong>Profanity:</strong> Mild.<br><strong>Intense scenes:</strong> Mild.</td>
+                        </tr>
+                        <tr>
+                            <td>Dogwater Sumesh</td>
+                            <td style="color:var(--accent-gold); font-weight:bold;">12A</td>
+                            <td><strong>Violence:</strong> Mild (Sumesh hits musician with a steel bottle).<br><strong>Profanity:</strong> Mild-Moderate.<br><strong>Intense scenes:</strong> Mild.</td>
+                        </tr>
+                        <tr>
+                            <td>Arana Ser</td>
+                            <td style="color:var(--accent-gold); font-weight:bold;">12A</td>
+                            <td><strong>Violence:</strong> Moderate (Hand-to-hand combat, small explosions).<br><strong>Drugs:</strong> Arana Ser drinks alcohol.<br><strong>Language:</strong> Mild (rude jokes).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-lover" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">💘 The Lover Franchise</h2>
+                <span class="close-btn" onclick="closeModal('modal-lover')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Franchise Overview</h3>
+                <p><strong>The Lover</strong> is a massive franchise created by <strong>Gopi</strong>, blending high-octane action with romance.</p>
+                
+                <div style="margin-top:20px; border:1px solid #334155; padding:20px; border-radius:10px; background:rgba(255,255,255,0.05);">
+                    <h4 style="color:var(--accent-gold);">The Beginning</h4>
+                    <p>The 1st movie was a huge box office hit, grossing <strong>$1 Billion</strong> against a budget of <strong>$100 Million</strong>.</p>
+                </div>
+
+                <div style="margin-top:20px; border:1px solid #334155; padding:20px; border-radius:10px; background:rgba(237, 33, 58, 0.1);">
+                    <h4 style="color:var(--accent-danger);">The Dark Ages</h4>
+                    <p>The subsequent Lover movies (2 through 55) were largely considered box office bombs and were heavily criticized by audiences and critics alike.</p>
+                </div>
+
+                <div style="margin-top:20px; border:1px solid #334155; padding:20px; border-radius:10px; background:rgba(46, 204, 113, 0.1);">
+                    <h4 style="color:var(--accent-safe);">The Redemption (Movie 56)</h4>
+                    <p>The 56th movie, the newest installment, earned positive reviews and became a certified hit, reviving interest in the long-running saga.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden"; // Prevent background scrolling
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto"; // Restore background scrolling
+        }
+
+        // Close modal if user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+    </script>
+
+</body>
+</html>
